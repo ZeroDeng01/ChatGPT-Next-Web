@@ -1388,15 +1388,14 @@ function _Chat() {
           }
           accessStore.update((access) => (access.useCustomConfig = true));
           showToast(
-              "已从URL自动填入配置" +
-              `\n${JSON.stringify(payload, null, 4)}`,
+              "已从自动填入API URL和Key",
               {
                 text: Locale.UI.Confirm,
                 onClick() {
                   console.log("[Command] setting success");
                 },
               },
-              3000,
+              5000,
           );
         }
       } catch {
