@@ -1378,21 +1378,26 @@ function _Chat() {
         console.log("[Command] got settings from url: ", payload);
 
         if (payload.key || payload.url) {
-          showConfirm(
-            Locale.URLCommand.Settings +
-              `\n${JSON.stringify(payload, null, 4)}`,
-          ).then((res) => {
-            if (!res) return;
-            if (payload.key) {
-              accessStore.update(
+          if (payload.key) {
+            accessStore.update(
                 (access) => (access.openaiApiKey = payload.key!),
-              );
-            }
-            if (payload.url) {
-              accessStore.update((access) => (access.openaiUrl = payload.url!));
-            }
-            accessStore.update((access) => (access.useCustomConfig = true));
-          });
+            );
+          }
+          if (payload.url) {
+            accessStore.update((access) => (access.openaiUrl = payload.url!));
+          }
+          accessStore.update((access) => (access.useCustomConfig = true));
+          showToast(
+              "已从URL自动填入配置" +
+              `\n${JSON.stringify(payload, null, 4)}`,
+              {
+                text: Locale.UI.Confirm,
+                onClick() {
+                  console.log("[Command] setting success");
+                },
+              },
+              3000,
+          );
         }
       } catch {
         console.error("[Command] failed to get settings from url: ", text);
