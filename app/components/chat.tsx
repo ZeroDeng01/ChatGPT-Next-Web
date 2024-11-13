@@ -2075,6 +2075,6 @@ function _Chat() {
 
 export function Chat() {
   const chatStore = useChatStore();
-  const sessionIndex = chatStore.currentSessionIndex;
-  return <_Chat key={sessionIndex}></_Chat>;
+  const session = chatStore.currentSession();
+  return <_Chat key={session.id}></_Chat>;
 }
